@@ -1,0 +1,14 @@
+SQL querry below contains Common Table Expression:
+--top 10 customers--
+SELECT A.first_name, A.last_name,
+       D.country,
+       C.city,
+       SUM(E.amount) AS "Total Amount Paid"
+FROM customer A
+INNER JOIN address B ON A.address_id = B.address_id
+INNER JOIN city C ON B.city_id = C.city_id
+INNER JOIN country D ON C.country_ID = D.country_ID
+INNER JOIN payment E ON A.customer_id = E.customer_id
+GROUP BY first_name, last_name, country, city
+ORDER BY "Total Amount Paid" DESC
+LIMIT 10
