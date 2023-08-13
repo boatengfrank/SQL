@@ -1,0 +1,13 @@
+SQL querry here contains Common Table Expression:
+--Movies by revenue--
+SELECT 
+       D.title, D.rating, F.name AS category,
+       SUM(A.amount) AS "Total Amount Paid"
+FROM payment A
+INNER JOIN rental B ON A.rental_id = B.rental_id
+INNER JOIN inventory C ON B.inventory_id = C.inventory_id
+INNER JOIN film D ON C.film_ID = D.film_ID
+INNER JOIN film_category E ON D.film_ID = E.film_ID
+INNER JOIN category F ON E.category_id = F.category_id
+GROUP BY title, rating, category
+ORDER BY "Total Amount Paid" DESC
